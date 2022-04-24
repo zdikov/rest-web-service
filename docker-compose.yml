@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  server:
+    build:
+      context: server
+    volumes:
+      - data-volume:/data/images
+      - data-volume:/data/reports
+  worker:
+    build:
+      context: worker
+    volumes:
+      - data-volume:/data/images
+      - data-volume:/data/reports
+volumes:
+  data-volume:
